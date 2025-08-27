@@ -1,9 +1,11 @@
 #include "../headers/weapons/aoeweapon.hpp"
+#include <iostream>
 
 AOEWeapon::AOEWeapon() {}
 
-AOEWeapon::AOEWeapon(int setTargetCount) {
+AOEWeapon::AOEWeapon(int setTargetCount, int setStrength) {
     targetCount = setTargetCount;
+    strength = setStrength;
 }
 
 void AOEWeapon::attack(std::vector<Enemy> targets) {
@@ -11,6 +13,8 @@ void AOEWeapon::attack(std::vector<Enemy> targets) {
         if(i < 0) i = 0;
 
         targets[i].takeDamage(strength, 0);
+
+        if(targets[i].getHealth() <= 0) std::cout << "The enemy died!" << std::endl;
     }
 }
 

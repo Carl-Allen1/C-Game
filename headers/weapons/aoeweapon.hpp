@@ -8,7 +8,7 @@ private:
     int targetCount;
 public:
     AOEWeapon();
-    AOEWeapon(int setTargetCount);
+    AOEWeapon(int setTargetCount, int setStrength);
 
     void attack(std::vector<Enemy> targets) override;
 

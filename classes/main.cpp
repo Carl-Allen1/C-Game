@@ -1,6 +1,8 @@
 #include "../headers/main.hpp"
 #include "../headers/item.hpp"
-#include "../headers/weapon.hpp"
+#include "../headers/roles/fighter.hpp"
+#include "../headers/weapons/stweapon.hpp"
+#include "../headers/weapons/aoeweapon.hpp"
 #include <iostream>
 #include <cmath>
 
@@ -20,7 +22,8 @@ void Main::generateEnemies(int minHealth, int maxHealth, int minDamage, int maxD
 
 void Main::runGame() {
     if(!started) {
-        pickStarter();
+        pickRole();
+        pickWeapon();
         started = true;
     }
     
@@ -39,35 +42,48 @@ void Main::runGame() {
     gameOver();
 }
 
-void Main::pickStarter() {
-    std::cout << "Pick a weapon to start with!\n"
-        << "1. Mace\n"
-        << "2. Sword\n"
-        << "3. Warhammer" << std::endl;
+void Main::pickRole() {
+    std::cout << "Pick a role to have!\n"
+        << "1. Fighter" << std::endl;
+    
+    int chosenRole = 0;
 
+    while(true) {
+        std::cout << "Enter the number of your choice: " << std::endl;
+
+        if(std::cin >> chosenRole && chosenRole == 1) break;
+
+        std::cin.clear();
+        std::cin.ignore(1000, '\n');
+        std::cout << "Please enter a number 1-1!" << std::endl;
+    }
+
+    switch(chosenRole) {
+        case 1: player.setRole(std::make_unique<Fighter>(3, 3)); break;
+    }
+}
+
+void Main::pickWeapon() {
+    std::cout << "Pick a weapon to start with!\n"
+        << "1. Sword\n"
+        << "2. Warhammer" << std::endl;
+    
     int chosenWeapon = 0;
 
     while(true) {
         std::cout << "Enter the number of your choice: " << std::endl;
 
-        if(std::cin >> chosenWeapon && chosenWeapon >= 1 && chosenWeapon <= 3) {
-            break;
-        }
+        if(std::cin >> chosenWeapon && chosenWeapon >= 1 && chosenWeapon <= 2) break;
 
         std::cin.clear();
         std::cin.ignore(1000, '\n');
-        std::cout << "Please enter a number 1-3!" << std::endl;
+        std::cout << "Please enter a number 1-2!" << std::endl;
     }
-
-    std::shared_ptr<Item> chosen;
 
     switch(chosenWeapon) {
-        case 1: chosen = std::make_shared<Weapon>(100, 100, true, 10, "Mace"); break;
-        case 2: chosen = std::make_shared<Weapon>(100, 100, true, 10, "Sword"); break;
-        case 3: chosen = std::make_shared<Weapon>(100, 100, true, 10, "Warhammer"); break;
+        case 1: player.setWeapon(std::make_unique<STWeapon>(10)); break;
+        case 2: player.setWeapon(std::make_unique<AOEWeapon>(3, 7)); break;
     }
-
-    player.getInventory().addItem(chosen);
 }
 
 void Main::attack() {
@@ -99,14 +115,7 @@ void Main::attack() {
     auto chosenWeapon = std::dynamic_pointer_cast<Weapon>(items[chosenIndex]);
     std::cout << "Attacking enemy with " << chosenWeapon->toString() << std::endl;
 
-    enemies.back().takeDamage(chosenWeapon->getStrength());
-
-    if(enemies.back().getHealth() <= 0) {
-        std::cout << "The enemy died!" << std::endl;
-        enemies.pop_back();
-    } else {
-        std::cout << "The enemy is now at " << enemies.back().getHealth() << " health!" << std::endl;
-    }
+    chosenWeapon->attack(enemies);
 }
 
 void Main::getAttacked() {
@@ -114,7 +123,13 @@ void Main::getAttacked() {
         std::cout << "It is enemy " << i + 1 << "'s turn to attack!" << std::endl;
 
         double prevHealth = player.getHealth();
-        player.takeDamage(enemies[i].getDamage());
+        
+        if(player.roleHasArmor()) {
+            player.takeDamage(enemies[i].getDamage(), player.getRoleArmor());
+        } else {
+            player.takeDamage(enemies[i].getDamage(), 0);
+        }
+        
         double damageTaken = prevHealth - player.getHealth();
 
         std::cout << "You were hit for " << damageTaken << " damage!" << std::endl;

@@ -43,6 +43,7 @@ public:
     void setUltTracker(int setUltTracker);
 
     int getAttacks();
+    virtual double getArmor() = 0;
 
     int getPrimCooldown();
     int getPrimTracker();

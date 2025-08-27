@@ -14,7 +14,10 @@ public:
     Main(double playerHealth);
     void generateEnemies(int minHealth, int maxHealth, int minDamage, int maxDamage, int amt);
     void runGame();
-    void pickStarter();
+
+    void pickRole();
+    void pickWeapon();
+
     void attack();
     void getAttacked();
     void gameOver();
