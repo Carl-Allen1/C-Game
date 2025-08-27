@@ -21,6 +21,7 @@ public:
 
     Role();
     Role(int spc, int spt, int ssc, int sst, int suc, int sut, int setAttacks);
+    virtual ~Role() = default;
 
     virtual void usePrimary() = 0;
     virtual void useSecondary() = 0;
