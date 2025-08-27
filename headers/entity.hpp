@@ -10,7 +10,7 @@ public:
 
     Entity();
     Entity(double setHealth);
-    void takeDamage(double amt);
+    void takeDamage(double amt, double armor);
     void healDamage(double amt);
     double getHealth();
     bool getDead();
