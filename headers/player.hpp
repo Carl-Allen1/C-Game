@@ -10,7 +10,7 @@ private:
     int const defaultSize = 10;
 public:
     Player();
-    Player(int inventorySize, double setHealth, double setArmor);
+    Player(int inventorySize, double setHealth);
     Inventory& getInventory();
 };
 

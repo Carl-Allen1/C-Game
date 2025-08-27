@@ -2,9 +2,8 @@
 
 Player::Player() : inventory(defaultSize) {}
 
-Player::Player(int inventorySize, double setHealth, double setArmor) : inventory(inventorySize) {
+Player::Player(int inventorySize, double setHealth) : inventory(inventorySize) {
     health = setHealth;
-    armor = setArmor;
 }
 
 Inventory& Player::getInventory() { return inventory; }

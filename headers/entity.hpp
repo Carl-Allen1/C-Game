@@ -4,18 +4,15 @@
 class Entity {
 protected:
     double health;
-    double armor;
     bool isDead;
 public:
     virtual ~Entity() = default;
 
     Entity();
-    Entity(double setHealth, double setArmor);
+    Entity(double setHealth);
     void takeDamage(double amt);
     void healDamage(double amt);
-    void setArmor(double setArmor);
     double getHealth();
-    double getArmor();
     bool getDead();
 };
 

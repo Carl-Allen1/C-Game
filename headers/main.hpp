@@ -11,7 +11,7 @@ private:
     Player player;
     std::vector<Enemy> enemies;
 public:
-    Main(double playerHealth, double playerArmor);
+    Main(double playerHealth);
     void generateEnemies(int minHealth, int maxHealth, int minDamage, int maxDamage, int amt);
     void runGame();
     void pickStarter();

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cmath>
 
-Main::Main(double playerHealth, double playerArmor) : player(10, playerHealth, playerArmor) {
+Main::Main(double playerHealth) : player(10, playerHealth) {
     started = false;
     generateEnemies(10, 15, 3, 7, 3);
     runGame();
@@ -134,13 +134,13 @@ void Main::gameOver() {
     std::cin >> choice;
 
     if(choice == "Y" || choice == "y") {
-        Main newGame(50, 0);
+        Main newGame(50);
     } else {
         std::cout << "Bye!" << std::endl;
     }
 }
 
 int main() {
-    Main game(50, 0);
+    Main game(50);
     return 0;
 }
