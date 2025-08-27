@@ -11,13 +11,17 @@ private:
 public:
     Fighter::Fighter();
     Fighter::Fighter(double setArmor, int setSecDuration);
+
     double usePrimary(double damage); // This takes place of the same in Role.hpp/cpp but cannot be named so due to changed params
     void useSecondary() override;
     void useUltimate() override;
     Role::Type type() override;
+    bool hasArmor() override;
+
     void setArmor(double setArmor);
     void setSecDuration(int setSecDuration);
     void setUltUsed(bool setUltUsed);
+
     double getArmor();
     int getSecDuration();
     bool getUltUsed();

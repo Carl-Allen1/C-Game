@@ -16,9 +16,13 @@ void Fighter::useSecondary() {
     armor *= 2;
 }
 
-void Fighter::useUltimate() {} // TODO
+void Fighter::useUltimate() {
+    attacks = 3;
+    ultUsed = true;
+}
 
 Role::Type Fighter::type() { return Role::Type::Fighter; }
+bool Fighter::hasArmor() { return true; }
 
 void Fighter::setArmor(double setArmor) { armor = setArmor; }
 void Fighter::setSecDuration(int setSecDuration) { secDuration = setSecDuration; }
