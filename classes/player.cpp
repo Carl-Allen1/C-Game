@@ -1,6 +1,8 @@
 #include "../headers/player.hpp"
+#include "../headers/weapons/stweapon.hpp"
+#include "../headers/weapons/aoeweapon.hpp"
 
-Player::Player() : inventory(defaultSize) {}
+Player::Player() : inventory(10) {}
 
 Player::Player(int inventorySize, double setHealth) : inventory(inventorySize) {
     health = setHealth;
@@ -10,9 +12,9 @@ void Player::setRole(std::unique_ptr<Role> setRole) {
     role = std::move(setRole);
 }
 
-void Player::setWeapon(std::unique_ptr<Weapon> setWeapon) {
-    weapon = std::move(setWeapon);
-    inventory.addItem(std::make_shared<Weapon>(weapon));
+void Player::setWeapon(Weapon setWeapon) {
+    weapon = std::make_unique<Weapon>(setWeapon);
+    inventory.addItem(std::make_shared<Weapon>(setWeapon));
 }
 
 Inventory& Player::getInventory() { return inventory; }

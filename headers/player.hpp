@@ -11,13 +11,12 @@ private:
     std::unique_ptr<Role> role;
     std::unique_ptr<Weapon> weapon;
     Inventory inventory;
-    int const defaultSize = 10;
 public:
     Player();
     Player(int inventorySize, double setHealth);
 
     void setRole(std::unique_ptr<Role> setRole);
-    void setWeapon(std::unique_ptr<Weapon> setWeapon);
+    void setWeapon(Weapon setWeapon);
 
     Inventory& getInventory();
 

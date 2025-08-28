@@ -9,9 +9,10 @@ private:
     int secDuration;
     bool ultUsed;
 public:
-    Fighter::Fighter();
-    Fighter::Fighter(double setArmor, int setSecDuration);
+    Fighter();
+    Fighter(double setArmor, int setSecDuration);
 
+    void usePrimary() override; // Placeholder for compilation
     double usePrimary(double damage); // This takes place of the same in Role.hpp/cpp but cannot be named so due to changed params
     void useSecondary() override;
     void useUltimate() override;

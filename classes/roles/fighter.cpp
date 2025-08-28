@@ -8,6 +8,7 @@ Fighter::Fighter(double setArmor, int setSecDuration) {
     ultUsed = false;
 }
 
+void Fighter::usePrimary() {} // For override
 double Fighter::usePrimary(double damage) {
     return damage * 1.5;
 }

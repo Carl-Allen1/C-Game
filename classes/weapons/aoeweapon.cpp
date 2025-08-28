@@ -3,10 +3,13 @@
 
 AOEWeapon::AOEWeapon() {}
 
-AOEWeapon::AOEWeapon(int setTargetCount, int setStrength) {
+AOEWeapon::AOEWeapon(int setTargetCount, int setStrength, std::string setName) {
     targetCount = setTargetCount;
     strength = setStrength;
+    name = setName;
 }
+
+Weapon::Type AOEWeapon::weaponType() { return Weapon::Type::AOE; }
 
 void AOEWeapon::attack(std::vector<Enemy> targets) {
     for(int i = targets.size() - 1, j = 0; j < targetCount; i--, j++) {

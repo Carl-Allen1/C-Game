@@ -81,8 +81,8 @@ void Main::pickWeapon() {
     }
 
     switch(chosenWeapon) {
-        case 1: player.setWeapon(std::make_unique<STWeapon>(10)); break;
-        case 2: player.setWeapon(std::make_unique<AOEWeapon>(3, 7)); break;
+        case 1: player.setWeapon(STWeapon(10, "Sword")); break;
+        case 2: player.setWeapon(AOEWeapon(3, 7, "Warhammer")); break;
     }
 }
 
@@ -102,7 +102,7 @@ void Main::attack() {
     chosenIndex--;
 
     const auto& items = player.getInventory().getItems();
-    if(chosenIndex < 0 || chosenIndex >= items.size()) {
+    if(chosenIndex < 0 || static_cast<long>(chosenIndex) >= items.size()) {
         std::cout << "Not a valid item!" << std::endl;
         return;
     }
@@ -119,7 +119,7 @@ void Main::attack() {
 }
 
 void Main::getAttacked() {
-    for(int i = 0; i < enemies.size(); i++) {
+    for(int i = 0; static_cast<long>(i) < enemies.size(); i++) {
         std::cout << "It is enemy " << i + 1 << "'s turn to attack!" << std::endl;
 
         double prevHealth = player.getHealth();

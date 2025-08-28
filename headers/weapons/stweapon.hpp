@@ -6,7 +6,9 @@
 class STWeapon: public Weapon {
 public:
     STWeapon();
-    STWeapon(int setStrength);
+    STWeapon(int setStrength, std::string setName);
+
+    Weapon::Type weaponType() override;
 
     void attack(std::vector<Enemy> targets) override;
 };

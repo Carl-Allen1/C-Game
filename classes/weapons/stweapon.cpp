@@ -3,9 +3,12 @@
 
 STWeapon::STWeapon() {}
 
-STWeapon::STWeapon(int setStrength) {
+STWeapon::STWeapon(int setStrength, std::string setName) {
     strength = setStrength;
+    name = setName;
 }
+
+Weapon::Type STWeapon::weaponType() { return Weapon::Type::SingleTarget; }
 
 void STWeapon::attack(std::vector<Enemy> targets) {
     targets.front().takeDamage(strength, 0);
