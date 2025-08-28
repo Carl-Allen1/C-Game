@@ -105,7 +105,7 @@ void Main::attack() {
     
     const auto& printWeapons = player.getInventory().getWeapons();
 
-    for(int i = 0; i < printWeapons.size(); i++) {
+    for(int i = 0; i < static_cast<int>(printWeapons.size()); i++) {
         std::cout << i + 1 << ": " << printWeapons[i]->toString() << std::endl;
     }
 
@@ -120,7 +120,7 @@ void Main::attack() {
 
     const auto& weapons = player.getInventory().getWeapons();
 
-    if(chosenIndex < 0 || static_cast<long>(chosenIndex) >= weapons.size()) {
+    if(chosenIndex < 0 || chosenIndex >= static_cast<int>(weapons.size())) {
         std::cout << "Not a valid item!" << std::endl;
         return;
     }
@@ -139,7 +139,7 @@ void Main::attack() {
 }
 
 void Main::getAttacked() {
-    for(int i = 0; static_cast<long>(i) < enemies.size(); i++) {
+    for(int i = 0; i < static_cast<int>(enemies.size()); i++) {
         std::cout << "It is enemy " << i + 1 << "'s turn to attack!" << std::endl;
 
         double prevHealth = player.getHealth();

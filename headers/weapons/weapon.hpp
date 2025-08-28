@@ -19,7 +19,7 @@ public:
     Weapon(double setDurability, double setMaxDurability, bool setBreakable, int setStrength, std::string setName);
     virtual ~Weapon() = default;
 
-    virtual void attack(std::vector<Enemy> targets) = 0;
+    virtual void attack(std::vector<Enemy>& targets) = 0;
 
     std::string toString() const override;
     Item::Type type() override;

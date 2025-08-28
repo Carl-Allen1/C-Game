@@ -20,12 +20,12 @@ void Inventory::toString() const {
 }
 
 void Inventory::addItem(std::unique_ptr<Item> item) {
-    if(items.size() == static_cast<long>(maxItems)) { std::cout << "Inventory is full!" << std::endl; return; }
+    if(static_cast<int>(items.size()) == maxItems) { std::cout << "Inventory is full!" << std::endl; return; }
     items.push_back(std::move(item));
 }
 
 void Inventory::addWeapon(std::unique_ptr<Weapon> weapon) {
-    if(weapons.size() == maxWeapons) { std::cout << "Weapon slots are full!" << std::endl; return; }
+    if(static_cast<int>(weapons.size()) == maxWeapons) { std::cout << "Weapon slots are full!" << std::endl; return; }
     weapons.push_back(std::move(weapon));
 }
 

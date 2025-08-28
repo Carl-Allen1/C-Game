@@ -13,10 +13,10 @@ AOEWeapon::AOEWeapon(int setTargetCount, int setStrength, std::string setName) {
 
 Weapon::Type AOEWeapon::weaponType() { return Weapon::Type::AOE; }
 
-void AOEWeapon::attack(std::vector<Enemy> targets) {
-    for(int i = targets.size() - 1, j = 0; j < targetCount; i--, j++) {
-        if(i < 0) i = 0;
-
+void AOEWeapon::attack(std::vector<Enemy>& targets) {
+    int actualTargets = std::min(targetCount, static_cast<int>(targets.size()));
+    
+    for(int i = 0; i < actualTargets; i++) {
         targets[i].takeDamage(strength, 0);
 
         std::cout << "Enemy " << i + 1 << " took " << strength << " damage!" << std::endl;

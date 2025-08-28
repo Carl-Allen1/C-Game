@@ -13,7 +13,7 @@ public:
 
     Weapon::Type weaponType() override;
 
-    void attack(std::vector<Enemy> targets) override;
+    void attack(std::vector<Enemy>& targets) override;
 
     void setTargetCount(int setTargetCount);
 

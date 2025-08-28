@@ -11,7 +11,7 @@ public:
 
     Weapon::Type weaponType() override;
 
-    void attack(std::vector<Enemy> targets) override;
+    void attack(std::vector<Enemy>& targets) override;
 };
 
 #endif // ST_WEAPON_H (Single-Target Weapon)
