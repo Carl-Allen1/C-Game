@@ -1,6 +1,7 @@
 #ifndef ST_WEAPON_H
 #define ST_WEAPON_H
 
+#include <memory>
 #include "weapon.hpp"
 
 class STWeapon: public Weapon {

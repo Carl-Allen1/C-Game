@@ -18,5 +18,7 @@ void Entity::healDamage(double amt) {
     health += amt;
 }
 
+void Entity::setDead(bool setDead) { isDead = setDead; }
+
 double Entity::getHealth() { return health; }
-bool Entity::getDead() { return isDead; }
+bool Entity::getDead() const { return isDead; }

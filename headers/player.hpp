@@ -16,7 +16,7 @@ public:
     Player(int inventorySize, double setHealth);
 
     void setRole(std::unique_ptr<Role> setRole);
-    void setWeapon(Weapon setWeapon);
+    void setWeapon(std::unique_ptr<Weapon> setWeapon);
 
     Inventory& getInventory();
 

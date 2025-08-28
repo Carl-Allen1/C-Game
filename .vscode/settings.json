@@ -59,5 +59,6 @@
         "sstream": "cpp",
         "stop_token": "cpp",
         "thread": "cpp"
-    }
+    },
+    "makefile.configureOnOpen": true
 }

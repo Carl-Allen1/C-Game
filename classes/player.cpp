@@ -12,8 +12,9 @@ void Player::setRole(std::unique_ptr<Role> setRole) {
     role = std::move(setRole);
 }
 
-void Player::setWeapon(Weapon setWeapon) {
-    inventory.addWeapon(std::make_unique<Weapon>(setWeapon));
+void Player::setWeapon(std::unique_ptr<Weapon> setWeapon) {
+    weapon = std::move(setWeapon);
+    inventory.addWeapon(std::move(weapon));
 }
 
 Inventory& Player::getInventory() { return inventory; }

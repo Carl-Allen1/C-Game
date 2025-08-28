@@ -19,11 +19,11 @@ public:
     void addItem(std::unique_ptr<Item> item);
     void addWeapon(std::unique_ptr<Weapon> weapon);
     void removeItem(Item item);
-    void removeWeapon(Weapon weapon);
+    void removeWeapon(const Weapon& weapon);
     void setMaxItems(int setMaxItems);
     void setMaxWeapons(int setMaxWeapons);
-    std::vector<std::unique_ptr<Item>> getItems();
-    std::vector<std::unique_ptr<Weapon>> getWeapons();
+    std::vector<std::unique_ptr<Item>>& getItems();
+    std::vector<std::unique_ptr<Weapon>>& getWeapons();
     int getMaxItems();
     int getMaxWeapons();
 };

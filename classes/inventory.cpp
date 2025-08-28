@@ -21,12 +21,12 @@ void Inventory::toString() const {
 
 void Inventory::addItem(std::unique_ptr<Item> item) {
     if(items.size() == static_cast<long>(maxItems)) { std::cout << "Inventory is full!" << std::endl; return; }
-    items.push_back(item);
+    items.push_back(std::move(item));
 }
 
 void Inventory::addWeapon(std::unique_ptr<Weapon> weapon) {
     if(weapons.size() == maxWeapons) { std::cout << "Weapon slots are full!" << std::endl; return; }
-    weapons.push_back(weapon);
+    weapons.push_back(std::move(weapon));
 }
 
 void Inventory::removeItem(Item item) {
@@ -37,10 +37,10 @@ void Inventory::removeItem(Item item) {
     if(index != items.end()) { items.erase(index); }
 }
 
-void Inventory::removeWeapon(Weapon weapon) {
+void Inventory::removeWeapon(const Weapon& weapon) {
     auto index = std::find_if(weapons.begin(), weapons.end(),
         [&](const std::unique_ptr<Weapon>& ptr) {
-            return *ptr == weapon;
+            return ptr.get() == &weapon;
         });
     if(index != weapons.end()) { weapons.erase(index); }
 }
@@ -48,7 +48,7 @@ void Inventory::removeWeapon(Weapon weapon) {
 void Inventory::setMaxItems(int setMaxItems) { maxItems = setMaxItems; }
 void Inventory::setMaxWeapons(int setMaxWeapons) { maxWeapons = setMaxWeapons; }
 
-std::vector<std::unique_ptr<Item>> Inventory::getItems() { return items; }
-std::vector<std::unique_ptr<Weapon>> Inventory::getWeapons() { return weapons; }
+std::vector<std::unique_ptr<Item>>& Inventory::getItems() { return items; }
+std::vector<std::unique_ptr<Weapon>>& Inventory::getWeapons() { return weapons; }
 int Inventory::getMaxItems() { return maxItems; }
 int Inventory::getMaxWeapons() { return maxWeapons; }

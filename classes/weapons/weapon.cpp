@@ -12,8 +12,6 @@ Weapon::Weapon(double setDurability, double setMaxDurability, bool setBreakable,
     name = setName;
 }
 
-void Weapon::attack(std::vector<Enemy> targets) {}
-
 std::string Weapon::toString() const { return name + " (Damage: " + std::to_string(strength) + ", Durability: " + std::to_string(static_cast<int>(durability)) + ")"; }
 
 Item::Type Weapon::type() { return Item::Type::Weapon; }

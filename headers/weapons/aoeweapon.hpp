@@ -1,6 +1,7 @@
 #ifndef AOE_WEAPON_H
 #define AOE_WEAPON_H
 
+#include <memory>
 #include "weapon.hpp"
 
 class AOEWeapon: public Weapon {

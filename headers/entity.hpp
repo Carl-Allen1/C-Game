@@ -12,8 +12,9 @@ public:
     Entity(double setHealth);
     void takeDamage(double amt, double armor);
     void healDamage(double amt);
+    void setDead(bool setDead);
     double getHealth();
-    bool getDead();
+    bool getDead() const;
 };
 
 #endif // ENTITY_H

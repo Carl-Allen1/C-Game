@@ -7,6 +7,8 @@
 #include <thread>
 #include <chrono>
 #include <cmath>
+#include <algorithm>
+#include <random>
 
 Main::Main(double playerHealth) : player(10, playerHealth) {
     started = false;
@@ -15,10 +17,16 @@ Main::Main(double playerHealth) : player(10, playerHealth) {
 }
 
 void Main::generateEnemies(int minHealth, int maxHealth, int minDamage, int maxDamage, int amt) {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+
+    std::uniform_int_distribution<> damageDist(minDamage, maxDamage);
+    std::uniform_int_distribution<> healthDist(minHealth, maxHealth);
+    
     for(int i = 0; i < amt; i++) {
-        int randDamage = std::round(rand() % (maxDamage - minDamage + 1) + minDamage);
-        int randHealth = std::round(rand() % (maxHealth - minHealth + 1) + minHealth);
-        enemies.push_back(Enemy(randDamage, randHealth));
+        int randDamage = damageDist(gen);
+        int randHealth = healthDist(gen);
+        enemies.emplace_back(randDamage, randHealth);
     }
 }
 
@@ -85,8 +93,8 @@ void Main::pickWeapon() {
     }
 
     switch(chosenWeapon) {
-        case 1: player.setWeapon(STWeapon(10, "Sword")); break;
-        case 2: player.setWeapon(AOEWeapon(3, 7, "Warhammer")); break;
+        case 1: player.setWeapon(std::make_unique<STWeapon>(10, "Sword")); break;
+        case 2: player.setWeapon(std::make_unique<AOEWeapon>(3, 7, "Warhammer")); break;
     }
 }
 
@@ -117,10 +125,17 @@ void Main::attack() {
         return;
     }
 
-    auto& chosenWeapon = weapons[chosenIndex];
-    std::cout << "Attacking enemy with " << chosenWeapon->toString() << std::endl;
+    std::cout << "Attacking enemy with " << weapons[chosenIndex]->toString() << std::endl;
+    weapons[chosenIndex]->attack(enemies);
 
-    chosenWeapon->attack(enemies);
+    enemies.erase(
+        std::remove_if(enemies.begin(), enemies.end(),
+            [](const Enemy& enemy){
+                return enemy.getDead();
+            }
+        ),
+        enemies.end()
+    );
 }
 
 void Main::getAttacked() {
@@ -160,6 +175,7 @@ void Main::gameOver() {
     if(choice == "Y" || choice == "y") {
         Main newGame(50);
     } else {
+        std::cin.clear();
         std::cout << "Bye!" << std::endl;
     }
 }
