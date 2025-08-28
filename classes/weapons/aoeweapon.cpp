@@ -17,6 +17,8 @@ void AOEWeapon::attack(std::vector<Enemy> targets) {
 
         targets[i].takeDamage(strength, 0);
 
+        std::cout << "The enemy took " << strength << " damage!" << std::endl;
+
         if(targets[i].getHealth() <= 0) std::cout << "The enemy died!" << std::endl;
     }
 }
