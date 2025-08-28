@@ -94,7 +94,12 @@ void Main::attack() {
     std::cout << "It is your turn to attack!" << std::endl;
     std::cout << "You have " << player.getHealth() << " health!" << std::endl;
     std::cout << "Choose a weapon to attack with!" << std::endl;
-    player.getInventory().toString();
+    
+    const auto& printWeapons = player.getInventory().getWeapons();
+
+    for(int i = 0; i < printWeapons.size(); i++) {
+        std::cout << i + 1 << ": " << printWeapons[i]->toString() << std::endl;
+    }
 
     int chosenIndex;
     if(!(std::cin >> chosenIndex)) {
@@ -105,24 +110,15 @@ void Main::attack() {
     }
     chosenIndex--;
 
-    const auto& items = player.getInventory().getItems();
-    if(chosenIndex < 0 || static_cast<long>(chosenIndex) >= items.size()) {
+    const auto& weapons = player.getInventory().getWeapons();
+
+    if(chosenIndex < 0 || static_cast<long>(chosenIndex) >= weapons.size()) {
         std::cout << "Not a valid item!" << std::endl;
         return;
     }
 
-    if(items[chosenIndex]->type() != Item::Type::Weapon) {
-        std::cout << "Please choose a weapon!" << std::endl;
-        return;
-    }
-
-    auto chosenWeapon = std::dynamic_pointer_cast<Weapon>(items[chosenIndex]);
+    auto& chosenWeapon = weapons[chosenIndex];
     std::cout << "Attacking enemy with " << chosenWeapon->toString() << std::endl;
-
-    switch(chosenWeapon->weaponType()) {
-        case Weapon::Type::SingleTarget: chosenWeapon = std::dynamic_pointer_cast<STWeapon>(chosenWeapon); std::cout << "DEBUG0" << std::endl; break;
-        case Weapon::Type::AOE: chosenWeapon = std::dynamic_pointer_cast<AOEWeapon>(chosenWeapon); std::cout << "DEBUG1" << std::endl; break;
-    }
 
     chosenWeapon->attack(enemies);
 }
