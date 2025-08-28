@@ -19,8 +19,7 @@ void Inventory::toString() const {
 }
 
 void Inventory::addItem(std::shared_ptr<Item> item) {
-    if(items.size() == static_cast<long>(maxItems)) { return; }
-    std::cout << "Inventory is full!" << std::endl;
+    if(items.size() == static_cast<long>(maxItems)) { std::cout << "Inventory is full!" << std::endl; return; }
     items.push_back(item);
 }
 

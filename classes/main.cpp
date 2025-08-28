@@ -4,6 +4,8 @@
 #include "../headers/weapons/stweapon.hpp"
 #include "../headers/weapons/aoeweapon.hpp"
 #include <iostream>
+#include <thread>
+#include <chrono>
 #include <cmath>
 
 Main::Main(double playerHealth) : player(10, playerHealth) {
@@ -23,7 +25,9 @@ void Main::generateEnemies(int minHealth, int maxHealth, int minDamage, int maxD
 void Main::runGame() {
     if(!started) {
         pickRole();
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         pickWeapon();
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         started = true;
     }
     
@@ -115,6 +119,11 @@ void Main::attack() {
     auto chosenWeapon = std::dynamic_pointer_cast<Weapon>(items[chosenIndex]);
     std::cout << "Attacking enemy with " << chosenWeapon->toString() << std::endl;
 
+    switch(chosenWeapon->weaponType()) {
+        case Weapon::Type::SingleTarget: chosenWeapon = std::dynamic_pointer_cast<STWeapon>(chosenWeapon); std::cout << "DEBUG0" << std::endl; break;
+        case Weapon::Type::AOE: chosenWeapon = std::dynamic_pointer_cast<AOEWeapon>(chosenWeapon); std::cout << "DEBUG1" << std::endl; break;
+    }
+
     chosenWeapon->attack(enemies);
 }
 
@@ -132,7 +141,11 @@ void Main::getAttacked() {
         
         double damageTaken = prevHealth - player.getHealth();
 
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+
         std::cout << "You were hit for " << damageTaken << " damage!" << std::endl;
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
 
         if(player.getHealth() <= 0) {
             std::cout << "You died!" << std::endl;

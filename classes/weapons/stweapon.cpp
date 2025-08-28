@@ -1,5 +1,7 @@
 #include "../headers/weapons/stweapon.hpp"
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 STWeapon::STWeapon() {}
 
@@ -16,4 +18,6 @@ void STWeapon::attack(std::vector<Enemy> targets) {
     std::cout << "The enemy was hit for " << strength << " damage!" << std::endl;
 
     if(targets.front().getHealth() <= 0) std::cout << "The enemy died!" << std::endl;
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 }

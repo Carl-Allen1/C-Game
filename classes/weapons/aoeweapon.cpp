@@ -1,5 +1,7 @@
 #include "../headers/weapons/aoeweapon.hpp"
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 AOEWeapon::AOEWeapon() {}
 
@@ -12,6 +14,8 @@ AOEWeapon::AOEWeapon(int setTargetCount, int setStrength, std::string setName) {
 Weapon::Type AOEWeapon::weaponType() { return Weapon::Type::AOE; }
 
 void AOEWeapon::attack(std::vector<Enemy> targets) {
+    std::cout << "DEBUG: ATTACKING" << std::endl;
+    
     for(int i = targets.size() - 1, j = 0; j < targetCount; i--, j++) {
         if(i < 0) i = 0;
 
@@ -20,6 +24,8 @@ void AOEWeapon::attack(std::vector<Enemy> targets) {
         std::cout << "The enemy took " << strength << " damage!" << std::endl;
 
         if(targets[i].getHealth() <= 0) std::cout << "The enemy died!" << std::endl;
+
+        std::this_thread::sleep_for(std::chrono::seconds(2));
     }
 }
 

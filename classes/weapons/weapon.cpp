@@ -1,4 +1,5 @@
 #include "../headers/weapons/weapon.hpp"
+#include <iostream>
 
 Weapon::Weapon() {}
 
