@@ -58,7 +58,10 @@
         "ratio": "cpp",
         "sstream": "cpp",
         "stop_token": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "map": "cpp",
+        "random": "cpp",
+        "xtree": "cpp"
     },
     "makefile.configureOnOpen": true
 }

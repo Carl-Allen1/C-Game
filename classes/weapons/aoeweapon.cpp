@@ -1,4 +1,5 @@
 #include "../headers/weapons/aoeweapon.hpp"
+#include "../headers/color.hpp"
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -19,10 +20,12 @@ void AOEWeapon::attack(std::vector<Enemy>& targets) {
     for(int i = 0; i < actualTargets; i++) {
         targets[i].takeDamage(strength, 0);
 
-        std::cout << "Enemy " << i + 1 << " took " << strength << " damage!" << std::endl;
+        std::cout << Color::colorCodes[Color::Colors::Blue] << "Enemy " << i + 1 << " took " << strength << " damage!"
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
 
         if(targets[i].getHealth() <= 0) {
-            std::cout << "The enemy died!" << std::endl;
+            std::cout << Color::colorCodes[Color::Colors::BrightBlue] << "The enemy died!"
+                << Color::colorCodes[Color::Colors::Reset] << std::endl;
             targets[i].setDead(true);
 
             if(targets.size() == 1) return;

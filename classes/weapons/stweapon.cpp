@@ -1,4 +1,5 @@
 #include "../headers/weapons/stweapon.hpp"
+#include "../headers/color.hpp"
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -15,10 +16,12 @@ Weapon::Type STWeapon::weaponType() { return Weapon::Type::SingleTarget; }
 void STWeapon::attack(std::vector<Enemy>& targets) {
     targets.front().takeDamage(strength, 0);
 
-    std::cout << "The enemy was hit for " << strength << " damage!" << std::endl;
+    std::cout << Color::colorCodes[Color::Colors::Blue] << "The enemy was hit for " << strength << " damage!"
+        << Color::colorCodes[Color::Colors::Reset] << std::endl;
 
     if(targets.front().getHealth() <= 0) {
-        std::cout << "The enemy died!" << std::endl;
+        std::cout << Color::colorCodes[Color::Colors::BrightBlue] << "The enemy died!"
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
         targets.front().setDead(true);
     }
 

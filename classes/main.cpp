@@ -3,6 +3,7 @@
 #include "../headers/roles/fighter.hpp"
 #include "../headers/weapons/stweapon.hpp"
 #include "../headers/weapons/aoeweapon.hpp"
+#include "../headers/color.hpp"
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -13,7 +14,6 @@
 Main::Main(double playerHealth) : player(10, playerHealth) {
     started = false;
     generateEnemies(10, 15, 3, 7, 3);
-    runGame();
 }
 
 void Main::generateEnemies(int minHealth, int maxHealth, int minDamage, int maxDamage, int amt) {
@@ -55,19 +55,21 @@ void Main::runGame() {
 }
 
 void Main::pickRole() {
-    std::cout << "Pick a role to have!\n"
-        << "1. Fighter" << std::endl;
+    std::cout << Color::colorCodes[Color::Colors::Green] << "Pick a role to have!\n"
+        << "1. Fighter" << Color::colorCodes[Color::Colors::Reset] << std::endl;
     
     int chosenRole = 0;
 
     while(true) {
-        std::cout << "Enter the number of your choice: " << std::endl;
+        std::cout << Color::colorCodes[Color::Colors::Green] << "Enter the number of your choice: "
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
 
         if(std::cin >> chosenRole && chosenRole == 1) break;
 
         std::cin.clear();
         std::cin.ignore(1000, '\n');
-        std::cout << "Please enter a number 1-1!" << std::endl;
+        std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::BrightRed] << "Please enter a number 1-1!" <<
+            Color::colorCodes[Color::Colors::Reset] << std::endl;
     }
 
     switch(chosenRole) {
@@ -76,20 +78,22 @@ void Main::pickRole() {
 }
 
 void Main::pickWeapon() {
-    std::cout << "Pick a weapon to start with!\n"
+    std::cout << Color::colorCodes[Color::Colors::Green] << "Pick a weapon to start with!\n"
         << "1. Sword\n"
-        << "2. Warhammer" << std::endl;
+        << "2. Warhammer" << Color::colorCodes[Color::Colors::Reset] << std::endl;
     
     int chosenWeapon = 0;
 
     while(true) {
-        std::cout << "Enter the number of your choice: " << std::endl;
+        std::cout << Color::colorCodes[Color::Colors::Green] << "Enter the number of your choice: "
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
 
         if(std::cin >> chosenWeapon && chosenWeapon >= 1 && chosenWeapon <= 2) break;
 
         std::cin.clear();
         std::cin.ignore(1000, '\n');
-        std::cout << "Please enter a number 1-2!" << std::endl;
+        std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::BrightRed] << "Please enter a number 1-2!"
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
     }
 
     switch(chosenWeapon) {
@@ -99,21 +103,23 @@ void Main::pickWeapon() {
 }
 
 void Main::attack() {
-    std::cout << "It is your turn to attack!" << std::endl;
+    std::cout << Color::colorCodes[Color::Colors::BrightGreen] << "It is your turn to attack!" << std::endl;
     std::cout << "You have " << player.getHealth() << " health!" << std::endl;
-    std::cout << "Choose a weapon to attack with!" << std::endl;
+    std::cout << "Choose a weapon to attack with!" << Color::colorCodes[Color::Colors::Reset] << std::endl;
     
     const auto& printWeapons = player.getInventory().getWeapons();
 
     for(int i = 0; i < static_cast<int>(printWeapons.size()); i++) {
-        std::cout << i + 1 << ": " << printWeapons[i]->toString() << std::endl;
+        std::cout << Color::colorCodes[Color::Colors::Cyan] << i + 1 << ": " << printWeapons[i]->toString() 
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
     }
 
     int chosenIndex;
     if(!(std::cin >> chosenIndex)) {
         std::cin.clear();
         std::cin.ignore(1000, '\n');
-        std::cout << "Please enter a valid input!" << std::endl;
+        std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::BrightRed] << "Please enter a valid input!"
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
         return;
     }
     chosenIndex--;
@@ -121,11 +127,14 @@ void Main::attack() {
     const auto& weapons = player.getInventory().getWeapons();
 
     if(chosenIndex < 0 || chosenIndex >= static_cast<int>(weapons.size())) {
-        std::cout << "Not a valid item!" << std::endl;
+        std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::BrightRed] << "Not a valid item!"
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
         return;
     }
 
-    std::cout << "Attacking enemy with " << weapons[chosenIndex]->toString() << std::endl;
+    std::cout << Color::colorCodes[Color::Colors::Magenta] << "Attacking enemy with " << weapons[chosenIndex]->toString() 
+        << Color::colorCodes[Color::Colors::Reset] << std::endl;
+    
     weapons[chosenIndex]->attack(enemies);
 
     enemies.erase(
@@ -140,7 +149,8 @@ void Main::attack() {
 
 void Main::getAttacked() {
     for(int i = 0; i < static_cast<int>(enemies.size()); i++) {
-        std::cout << "It is enemy " << i + 1 << "'s turn to attack!" << std::endl;
+        std::cout << Color::colorCodes[Color::Colors::Yellow] << "It is enemy " << i + 1 << "'s turn to attack!" 
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
 
         double prevHealth = player.getHealth();
         
@@ -154,12 +164,14 @@ void Main::getAttacked() {
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
 
-        std::cout << "You were hit for " << damageTaken << " damage!" << std::endl;
+        std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::BrightRed] << "You were hit for " << damageTaken << " damage!"
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
 
         if(player.getHealth() <= 0) {
-            std::cout << "You died!" << std::endl;
+            std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::Red] << "You died!"
+                << Color::colorCodes[Color::Colors::Reset] << std::endl;
             gameOver();
             break;
         }
@@ -169,7 +181,8 @@ void Main::getAttacked() {
 void Main::gameOver() {
     std::string choice;
 
-    std::cout << "Would you like to play again? Y/N" << std::endl;
+    std::cout << Color::colorCodes[Color::Colors::Cyan] << "Would you like to play again? Y/N"
+        << Color::colorCodes[Color::Colors::Reset] << std::endl;
     std::cin >> choice;
 
     if(choice == "Y" || choice == "y") {
@@ -182,5 +195,6 @@ void Main::gameOver() {
 
 int main() {
     Main game(50);
+    game.runGame();
     return 0;
 }
