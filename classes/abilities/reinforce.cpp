@@ -7,7 +7,7 @@
 Reinforce::Reinforce() {}
 
 Reinforce::Reinforce(int cooldown, int duration, bool durable, bool unlocked, double increase) {
-    this->description = "Increases armor by " + std::to_string(increase) + " for a short time";
+    this->description = "Increases armor by " + std::to_string(static_cast<int>(increase)) + " for a short time";
     this->cooldown = cooldown;
     this->durable = durable;
     this->duration = duration;

@@ -28,4 +28,14 @@ void Slash::execute(GameContext gctx) {
     }
 
     gctx.enemies->front().takeDamage(damage, 0);
+    std::cout << Color::colorCodes[Color::Colors::Blue] << "Hit the enemy for " + std::to_string(damage) + " damage!"
+        << Color::colorCodes[Color::Colors::Reset] << std::endl;
+
+    if(gctx.enemies->front().getHealth() <= 0) {
+        std::cout << Color::colorCodes[Color::Colors::BrightBlue] << "The enemy died!"
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
+        gctx.enemies->front().setDead(true);
+    }
+
+    used = true;
 }

@@ -27,8 +27,8 @@ public:
     void setWeapon(std::unique_ptr<Weapon> setWeapon);
 
     Inventory& getInventory();
-    std::unique_ptr<Role> getRole();
-    std::unique_ptr<Weapon> getWeapon();
+    std::unique_ptr<Role>& getRole();
+    std::unique_ptr<Weapon>& getWeapon();
 
     bool roleHasArmor();
     double getRoleArmor();
