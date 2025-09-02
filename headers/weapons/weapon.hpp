@@ -16,7 +16,7 @@ public:
     };
 
     Weapon();
-    Weapon(double setDurability, double setMaxDurability, bool setBreakable, int setStrength, std::string setName);
+    Weapon(double durability, double maxDurability, bool breakable, int strength, std::string name);
     virtual ~Weapon() = default;
 
     virtual void attack(std::vector<Enemy>& targets) = 0;
@@ -25,7 +25,7 @@ public:
     Item::Type type() override;
     virtual Type weaponType();
 
-    void setStrength(int setStrength);
+    void setStrength(int strength);
     int getStrength();
 };
 

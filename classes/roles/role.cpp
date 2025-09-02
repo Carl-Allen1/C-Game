@@ -2,42 +2,47 @@
 
 Role::Role() {}
 
-Role::Role(int spc, int spt, int ssc, int sst, int suc, int sut, int setAttacks) {
-    primCooldown = spc;
-    primTracker = spt;
-    secCooldown = ssc;
-    secTracker = sst;
-    ultCooldown = suc;
-    ultTracker = sut;
-
-    attacks = setAttacks;
-
-    secUnlocked = false;
-    ultUnlocked = false;
+Role::Role(int attacks) {
+    this->attacks = attacks;
 }
 
-void Role::setPrimCooldown(int setPrimCooldown) { primCooldown = setPrimCooldown; }
-void Role::setPrimTracker(int setPrimTracker) { primTracker = setPrimTracker; }
+void Role::checkCooldowns() {
+    if(primary->getUsed()) { primary->incCTracker(); }
+    if(primary->getCTracker() == primary->getCooldown()) { primary->setCTracker(0); primary->setUsed(false); }
 
-void Role::setSecUnlocked(bool setSecUnlocked) { secUnlocked = setSecUnlocked; }
-void Role::setSecCooldown(int setSecCooldown) { secCooldown = setSecCooldown; }
-void Role::setSecTracker(int setSecTracker) { secTracker = setSecTracker; }
+    if(secondary->getUsed()) { secondary->incCTracker(); }
+    if(secondary->getCTracker() == secondary->getCooldown()) { secondary->setCTracker(0); secondary->setUsed(false); }
 
-void Role::setUltUnlocked(bool setUltUnlocked) { ultUnlocked = setUltUnlocked; }
-void Role::setUltCooldown(int setUltCooldown) { ultCooldown = setUltCooldown; }
-void Role::setUltTracker(int setUltTracker) { ultTracker = setUltTracker; }
+    if(ultimate->getUsed()) { ultimate->incCTracker(); }
+    if(ultimate->getCTracker() == ultimate->getCooldown()) { ultimate->setCTracker(0); ultimate->setUsed(false); }
+}
+
+void Role::checkDurations(GameContext gctx) {
+    if(primary->getDurable()) {
+        if(primary->getDTracker() == primary->getDuration()) {
+            primary->revert(gctx);
+            primary->setDTracker(0);
+        } else { primary->incDTracker(); }
+    }
+
+    if(secondary->getDurable()) {
+        if(secondary->getDTracker() == secondary->getDuration()) {
+            secondary->revert(gctx);
+            secondary->setDTracker(0);
+        } else { secondary->incDTracker(); }
+    }
+
+    if(ultimate->getDurable()) {
+        if(ultimate->getDTracker() == ultimate->getDuration()) {
+            ultimate->revert(gctx);
+            ultimate->setDTracker(0);
+        } else { ultimate->incDTracker(); }
+    }
+}
 
 void Role::setAttacks(int setAttacks) { attacks = setAttacks; }
 
-int Role::getPrimCooldown() { return primCooldown; }
-int Role::getPrimTracker() { return primTracker; }
-
-bool Role::getSecUnlocked() { return secUnlocked; }
-int Role::getSecCooldown() { return secCooldown; }
-int Role::getSecTracker() { return secTracker; }
-
-bool Role::getUltUnlocked() { return ultUnlocked; }
-int Role::getUltCooldown() { return ultCooldown; }
-int Role::getUltTracker() { return ultTracker; }
-
 int Role::getAttacks() { return attacks; }
+std::unique_ptr<Ability> Role::getPrimary() { return std::move(primary); }
+std::unique_ptr<Ability> Role::getSecondary() { return std::move(secondary); }
+std::unique_ptr<Ability> Role::getUltimate() { return std::move(ultimate); }

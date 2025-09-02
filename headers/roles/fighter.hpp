@@ -2,30 +2,31 @@
 #define FIGHTER_H
 
 #include "role.hpp"
+#include "../abilities/slash.hpp"
+#include "../abilities/reinforce.hpp"
+#include "../abilities/frenzy.hpp"
+#include <memory>
 
 class Fighter: public Role {
 private:
     double armor;
-    int secDuration;
-    bool ultUsed;
+
+    std::unique_ptr<Slash> primary;
+    std::unique_ptr<Reinforce> secondary;
+    std::unique_ptr<Frenzy> ultimate;
 public:
     Fighter();
-    Fighter(double setArmor, int setSecDuration);
+    Fighter(double armor);
 
-    void usePrimary() override; // Placeholder for compilation
-    double usePrimary(double damage); // This takes place of the same in Role.hpp/cpp but cannot be named so due to changed params
-    void useSecondary() override;
-    void useUltimate() override;
+    void usePrimary(GameContext gctx) override;
+    void useSecondary(GameContext gctx) override;
+    void useUltimate(GameContext gctx) override;
     Role::Type type() override;
     bool hasArmor() override;
 
-    void setArmor(double setArmor);
-    void setSecDuration(int setSecDuration);
-    void setUltUsed(bool setUltUsed);
+    void setArmor(double armor) override;
 
-    double getArmor();
-    int getSecDuration();
-    bool getUltUsed();
+    double getArmor() override;
 };
 
 #endif // FIGHTER_H

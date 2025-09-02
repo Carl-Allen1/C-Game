@@ -5,9 +5,9 @@
 
 Inventory::Inventory() {}
 
-Inventory::Inventory(int setMaxItems, int setMaxWeapons) {
-    maxItems = setMaxItems;
-    maxWeapons = setMaxWeapons;
+Inventory::Inventory(int maxItems, int maxWeapons) {
+    this->maxItems = maxItems;
+    this->maxWeapons = maxWeapons;
 }
 
 void Inventory::toString() const {
@@ -45,8 +45,8 @@ void Inventory::removeWeapon(const Weapon& weapon) {
     if(index != weapons.end()) { weapons.erase(index); }
 }
 
-void Inventory::setMaxItems(int setMaxItems) { maxItems = setMaxItems; }
-void Inventory::setMaxWeapons(int setMaxWeapons) { maxWeapons = setMaxWeapons; }
+void Inventory::setMaxItems(int maxItems) { this->maxItems = maxItems; }
+void Inventory::setMaxWeapons(int maxWeapons) { this->maxWeapons = maxWeapons; }
 
 std::vector<std::unique_ptr<Item>>& Inventory::getItems() { return items; }
 std::vector<std::unique_ptr<Weapon>>& Inventory::getWeapons() { return weapons; }

@@ -1,18 +1,16 @@
 #ifndef ROLE_H
 #define ROLE_H
 
+#include "../abilities/ability.hpp"
+#include <memory>
+
 class Role {
 protected:
     int attacks;
 
-    int primCooldown;
-    int primTracker;
-    bool secUnlocked;
-    int secCooldown;
-    int secTracker;
-    bool ultUnlocked;
-    int ultCooldown;
-    int ultTracker;
+    std::unique_ptr<Ability> primary;
+    std::unique_ptr<Ability> secondary;
+    std::unique_ptr<Ability> ultimate;
 public:
     enum class Type {
         Any,
@@ -20,41 +18,27 @@ public:
     };
 
     Role();
-    Role(int spc, int spt, int ssc, int sst, int suc, int sut, int setAttacks);
+    Role(int attacks);
     virtual ~Role() = default;
 
-    virtual void usePrimary() = 0;
-    virtual void useSecondary() = 0;
-    virtual void useUltimate() = 0;
+    virtual void checkCooldowns();
+    virtual void checkDurations(GameContext gctx);
+
+    virtual void usePrimary(GameContext gctx) = 0;
+    virtual void useSecondary(GameContext gctx) = 0;
+    virtual void useUltimate(GameContext gctx) = 0;
     virtual Type type() = 0;
     virtual bool hasArmor() = 0;
 
     void setAttacks(int setAttacks);
-
-    void setPrimCooldown(int setPrimCooldown);
-    void setPrimTracker(int setPrimTracker);
-
-    void setSecUnlocked(bool setSecUnlocked);
-    void setSecCooldown(int setSecCooldown);
-    void setSecTracker(int setSecTracker);
-
-    void setUltUnlocked(bool setUltUnlocked);
-    void setUltCooldown(int setUltCooldown);
-    void setUltTracker(int setUltTracker);
+    virtual void setArmor(double armor) = 0;
 
     int getAttacks();
     virtual double getArmor() = 0;
 
-    int getPrimCooldown();
-    int getPrimTracker();
-
-    bool getSecUnlocked(); 
-    int getSecCooldown();
-    int getSecTracker();
-
-    bool getUltUnlocked();
-    int getUltCooldown();
-    int getUltTracker();
+    virtual std::unique_ptr<Ability> getPrimary();
+    virtual std::unique_ptr<Ability> getSecondary();
+    virtual std::unique_ptr<Ability> getUltimate();
 };
 
 #endif // ROLE_H

@@ -14,14 +14,17 @@ private:
     int maxWeapons;
 public:
     Inventory();
-    Inventory(int setMaxItems, int setMaxWeapons);
+    Inventory(int maxItems, int maxWeapons);
     void toString() const;
+    
     void addItem(std::unique_ptr<Item> item);
     void addWeapon(std::unique_ptr<Weapon> weapon);
     void removeItem(Item item);
     void removeWeapon(const Weapon& weapon);
-    void setMaxItems(int setMaxItems);
-    void setMaxWeapons(int setMaxWeapons);
+
+    void setMaxItems(int maxItems);
+    void setMaxWeapons(int maxWeapons);
+
     std::vector<std::unique_ptr<Item>>& getItems();
     std::vector<std::unique_ptr<Weapon>>& getWeapons();
     int getMaxItems();

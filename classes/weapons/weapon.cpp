@@ -3,13 +3,13 @@
 
 Weapon::Weapon() {}
 
-Weapon::Weapon(double setDurability, double setMaxDurability, bool setBreakable, int setStrength, std::string setName) {
-    durability = setDurability;
-    maxDurability = setMaxDurability;
-    breakable = setBreakable;
-    broken = false;
-    strength = setStrength;
-    name = setName;
+Weapon::Weapon(double durability, double maxDurability, bool breakable, int strength, std::string name) {
+    this->durability = durability;
+    this->maxDurability = maxDurability;
+    this->breakable = breakable;
+    this->broken = false;
+    this->strength = strength;
+    this->name = name;
 }
 
 std::string Weapon::toString() const { return name + " (Damage: " + std::to_string(strength) + ", Durability: " + std::to_string(static_cast<int>(durability)) + ")"; }
@@ -17,6 +17,6 @@ std::string Weapon::toString() const { return name + " (Damage: " + std::to_stri
 Item::Type Weapon::type() { return Item::Type::Weapon; }
 Weapon::Type Weapon::weaponType() { return Weapon::Type::Base; }
 
-void Weapon::setStrength(int setStrength) { strength = setStrength; }
+void Weapon::setStrength(int strength) { this->strength = strength; }
 
 int Weapon::getStrength() { return strength; }

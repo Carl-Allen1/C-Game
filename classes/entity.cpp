@@ -3,9 +3,9 @@
 
 Entity::Entity() {}
 
-Entity::Entity(double setHealth) {
-    health = setHealth;
-    isDead = false;
+Entity::Entity(double health) {
+    this->health = health;
+    this->isDead = false;
 }
 
 void Entity::takeDamage(double amt, double armor) {
@@ -18,7 +18,7 @@ void Entity::healDamage(double amt) {
     health += amt;
 }
 
-void Entity::setDead(bool setDead) { isDead = setDead; }
+void Entity::setDead(bool isDead) { this->isDead = isDead; }
 
 double Entity::getHealth() { return health; }
 bool Entity::getDead() const { return isDead; }

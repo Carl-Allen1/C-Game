@@ -9,13 +9,13 @@ private:
     int targetCount;
 public:
     AOEWeapon();
-    AOEWeapon(int setTargetCount, int setStrength, std::string setName);
+    AOEWeapon(int targetCount, int strength, std::string name);
 
     Weapon::Type weaponType() override;
 
     void attack(std::vector<Enemy>& targets) override;
 
-    void setTargetCount(int setTargetCount);
+    void setTargetCount(int targetCount);
 
     int getTargetCount();
 };

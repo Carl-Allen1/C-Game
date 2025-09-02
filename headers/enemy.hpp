@@ -8,8 +8,9 @@ private:
     double damage;
 public:
     Enemy();
-    Enemy(double setDamage, double setHealth);
-    void setDamage(double setDamage);
+    Enemy(double damage, double health);
+    
+    void setDamage(double damage);
     double getDamage();
 };
 

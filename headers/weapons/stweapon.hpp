@@ -7,7 +7,7 @@
 class STWeapon: public Weapon {
 public:
     STWeapon();
-    STWeapon(int setStrength, std::string setName);
+    STWeapon(int strength, std::string name);
 
     Weapon::Type weaponType() override;
 

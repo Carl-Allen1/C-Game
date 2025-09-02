@@ -14,6 +14,9 @@
 Main::Main(double playerHealth) : player(10, playerHealth) {
     started = false;
     generateEnemies(10, 15, 3, 7, 3);
+
+    gctx.player = &player;
+    gctx.enemies = &enemies;
 }
 
 void Main::generateEnemies(int minHealth, int maxHealth, int minDamage, int maxDamage, int amt) {
@@ -48,7 +51,8 @@ void Main::runGame() {
     if(player.getHealth() <= 0) {
         std::cout << "You died!" << std::endl;
     } else {
-        std::cout << "You win!" << std::endl;
+        std::cout << Color::colorCodes[Color::Colors::BrightCyan] << "You win!"
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
     }
 
     gameOver();
@@ -73,7 +77,7 @@ void Main::pickRole() {
     }
 
     switch(chosenRole) {
-        case 1: player.setRole(std::make_unique<Fighter>(3, 3)); break;
+        case 1: player.setRole(std::make_unique<Fighter>(3)); break;
     }
 }
 
@@ -132,6 +136,9 @@ void Main::attack() {
         return;
     }
 
+    useAbilities();
+    incAbilities();
+
     std::cout << Color::colorCodes[Color::Colors::Magenta] << "Attacking enemy with " << weapons[chosenIndex]->toString() 
         << Color::colorCodes[Color::Colors::Reset] << std::endl;
     
@@ -145,6 +152,34 @@ void Main::attack() {
         ),
         enemies.end()
     );
+}
+
+void Main::useAbilities() {
+    std::cout << Color::colorCodes[Color::Colors::BrightYellow] << "Use primary ability? Y/N"
+        << Color::colorCodes[Color::Colors::Reset] << std::endl;
+
+    std::string use1;
+    std::cin >> use1;
+    if(use1 == "Y" || use1 == "y") { player.getRole()->getPrimary()->execute(Main::gctx); }
+
+    std::cout << Color::colorCodes[Color::Colors::BrightYellow] << "Use secondary ability? Y/N"
+        << Color::colorCodes[Color::Colors::Reset] << std::endl;
+
+    std::string use2;
+    std::cin >> use2;
+    if(use2 == "Y" || use2 == "y") { player.getRole()->getSecondary()->execute(Main::gctx); }
+
+    std::cout << Color::colorCodes[Color::Colors::BrightYellow] << "Use ultimate ability? Y/N"
+        << Color::colorCodes[Color::Colors::Reset] << std::endl;
+
+    std::string use3;
+    std::cin >> use3;
+    if(use3 == "Y" || use3 == "y") { player.getRole()->getUltimate()->execute(Main::gctx); }
+}
+
+void Main::incAbilities() {
+    player.getRole()->checkCooldowns();
+    player.getRole()->checkDurations(gctx);
 }
 
 void Main::getAttacked() {

@@ -19,23 +19,28 @@ public:
         
         return equal;
     }
+
     virtual ~Item() = default;
 
     enum class Type {
         Base,
         Weapon
     };
+
     Item();
-    Item(double setDurability, double setMaxDurability, bool setBreakable, std::string setName);
+    Item(double durability, double maxDurability, bool breakable, std::string name);
     virtual std::string toString() const;
     virtual Type type();
+
     void damage(double amt);
     void repair(double amt);
-    void setDurability(double setDurability);
-    void setMaxDurability(double setMaxDurability);
-    void setBreakable(bool setBreakable);
-    void setBroken(bool setBroken);
-    void setName(std::string setName);
+
+    void setDurability(double durability);
+    void setMaxDurability(double maxDurability);
+    void setBreakable(bool breakable);
+    void setBroken(bool broken);
+    void setName(std::string name);
+
     double getDurability();
     double getMaxDurability();
     bool getBreakable();

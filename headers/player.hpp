@@ -13,12 +13,14 @@ private:
     Inventory inventory;
 public:
     Player();
-    Player(int inventorySize, double setHealth);
+    Player(int inventorySize, double health);
 
-    void setRole(std::unique_ptr<Role> setRole);
+    void setRole(std::unique_ptr<Role> role);
     void setWeapon(std::unique_ptr<Weapon> setWeapon);
 
     Inventory& getInventory();
+    std::unique_ptr<Role> getRole();
+    std::unique_ptr<Weapon> getWeapon();
 
     bool roleHasArmor();
     double getRoleArmor();

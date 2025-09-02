@@ -4,11 +4,13 @@
 #include <vector>
 #include "player.hpp"
 #include "enemy.hpp"
+#include "gamecontext.hpp"
 
 class Main {
 private:
     bool started;
     Player player;
+    GameContext gctx;
     std::vector<Enemy> enemies;
 public:
     Main(double playerHealth);
@@ -19,7 +21,10 @@ public:
     void pickWeapon();
 
     void attack();
+    void useAbilities();
+    void incAbilities();
     void getAttacked();
+
     void gameOver();
 };
 

@@ -2,11 +2,11 @@
 
 Enemy::Enemy() {}
 
-Enemy::Enemy(double setDamage, double setHealth) {
-    damage = setDamage;
-    health = setHealth;
+Enemy::Enemy(double damage, double health) {
+    this->damage = damage;
+    this->health = health;
 }
 
-void Enemy::setDamage(double setDamage) { damage = setDamage; }
+void Enemy::setDamage(double damage) { this->damage = damage; }
 
 double Enemy::getDamage() { return damage; }

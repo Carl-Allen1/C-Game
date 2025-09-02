@@ -6,9 +6,9 @@
 
 STWeapon::STWeapon() {}
 
-STWeapon::STWeapon(int setStrength, std::string setName) {
-    strength = setStrength;
-    name = setName;
+STWeapon::STWeapon(int strength, std::string name) {
+    this->strength = strength;
+    this->name = name;
 }
 
 Weapon::Type STWeapon::weaponType() { return Weapon::Type::SingleTarget; }

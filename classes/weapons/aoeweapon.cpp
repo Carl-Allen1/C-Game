@@ -6,10 +6,10 @@
 
 AOEWeapon::AOEWeapon() {}
 
-AOEWeapon::AOEWeapon(int setTargetCount, int setStrength, std::string setName) {
-    targetCount = setTargetCount;
-    strength = setStrength;
-    name = setName;
+AOEWeapon::AOEWeapon(int targetCount, int strength, std::string name) {
+    this->targetCount = targetCount;
+    this->strength = strength;
+    this->name = name;
 }
 
 Weapon::Type AOEWeapon::weaponType() { return Weapon::Type::AOE; }
@@ -35,6 +35,6 @@ void AOEWeapon::attack(std::vector<Enemy>& targets) {
     }
 }
 
-void AOEWeapon::setTargetCount(int setTargetCount) { targetCount = setTargetCount; }
+void AOEWeapon::setTargetCount(int targetCount) { this->targetCount = targetCount; }
 
 int AOEWeapon::getTargetCount() { return targetCount; }

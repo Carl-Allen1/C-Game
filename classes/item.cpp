@@ -2,12 +2,12 @@
 
 Item::Item() {}
 
-Item::Item(double setDurability, double setMaxDurability, bool setBreakable, std::string setName) {
-    durability = setDurability;
-    maxDurability = setMaxDurability;
-    breakable = setBreakable;
-    broken = false;
-    name = setName;
+Item::Item(double durability, double maxDurability, bool breakable, std::string name) {
+    this->durability = durability;
+    this->maxDurability = maxDurability;
+    this->breakable = breakable;
+    this->broken = false;
+    this->name = name;
 }
 
 std::string Item::toString() const { return name + " (Durability: " + std::to_string(durability) + ")"; }
@@ -24,11 +24,11 @@ void Item::repair(double amt) {
 }
 
 // Setters
-void Item::setDurability(double setDurability) { durability = setDurability; }
-void Item::setMaxDurability(double setMaxDurability) { maxDurability = setMaxDurability; }
-void Item::setBreakable(bool setBreakable) { breakable = setBreakable; }
-void Item::setBroken(bool setBroken) { broken = setBroken; }
-void Item::setName(std::string setName) { name = setName; }
+void Item::setDurability(double durability) { this->durability = durability; }
+void Item::setMaxDurability(double maxDurability) { this->maxDurability = maxDurability; }
+void Item::setBreakable(bool breakable) { this->breakable = breakable; }
+void Item::setBroken(bool broken) { this->broken = broken; }
+void Item::setName(std::string name) { this->name = name; }
 
 // Getters
 double Item::getDurability() { return durability; }

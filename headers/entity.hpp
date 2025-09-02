@@ -9,10 +9,13 @@ public:
     virtual ~Entity() = default;
 
     Entity();
-    Entity(double setHealth);
+    Entity(double health);
+
     void takeDamage(double amt, double armor);
     void healDamage(double amt);
-    void setDead(bool setDead);
+
+    void setDead(bool isDead);
+    
     double getHealth();
     bool getDead() const;
 };
