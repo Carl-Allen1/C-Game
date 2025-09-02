@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -Iheaders -Wall -Wextra
 BIN = main.exe
 
-SRCS := $(wildcard classes/*.cpp classes/roles/*.cpp classes/weapons/*.cpp classes/abilities/*.cpp)
+SRCS := $(wildcard classes/*.cpp classes/roles/*.cpp classes/weapons/*.cpp classes/abilities/*.cpp classes/story/*.cpp)
 OBJS := $(SRCS:.cpp=.o)
 
 all: $(BIN)
@@ -14,6 +14,6 @@ $(BIN): $(OBJS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	del /Q classes\*.o classes\roles\*.o classes\weapons\*.o classes\abilities\*.o $(BIN)
+	del /Q classes\*.o classes\roles\*.o classes\weapons\*.o classes\abilities\*.o classes\story\*.o $(BIN)
 
 .PHONY: all clean

@@ -4,6 +4,8 @@
 #include "../headers/weapons/stweapon.hpp"
 #include "../headers/weapons/aoeweapon.hpp"
 #include "../headers/color.hpp"
+#include "../headers/story/storymanager.hpp"
+#include "../headers/story/storynode.hpp"
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -17,6 +19,32 @@ Main::Main(double playerHealth) : player(10, playerHealth) {
 
     gctx.player = &player;
     gctx.enemies = &enemies;
+}
+
+void Main::playStoryNode(StoryNode* node) {
+    StoryManager::printStoryFile(node->storyFile);
+
+    if(node->choices.empty()) return;
+
+    for(int i = 0; i < node->choiceTitles.size(); i++) {
+        std::cout << Color::colorCodes[Color::Colors::Cyan] << i + 1 << ". " << node->choiceTitles[i]
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
+    }
+
+    int choice = 0;
+    while(true) {
+        std::cout << Color::colorCodes[Color::Colors::Green] << "Enter choice: "
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
+
+        if(std::cin >> choice && choice > 0 && choice <= node->choices.size()) break;
+        
+        std::cin.clear();
+        std::cin.ignore(1000, '\n');
+        std::cout << Color::colorCodes[Color::Colors::BrightRed] << "Enter a valid choice!"
+            << Color::colorCodes[Color::Colors::Reset] << std::endl;
+    }
+
+    playStoryNode(node->choices[choice - 1]);
 }
 
 void Main::generateEnemies(int minHealth, int maxHealth, int minDamage, int maxDamage, int amt) {
@@ -72,7 +100,7 @@ void Main::pickRole() {
 
         std::cin.clear();
         std::cin.ignore(1000, '\n');
-        std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::BrightRed] << "Please enter a number 1-1!" <<
+        std::cout << Color::colorCodes[Color::Colors::BrightRed] << "Please enter a number 1-1!" <<
             Color::colorCodes[Color::Colors::Reset] << std::endl;
     }
 
@@ -96,7 +124,7 @@ void Main::pickWeapon() {
 
         std::cin.clear();
         std::cin.ignore(1000, '\n');
-        std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::BrightRed] << "Please enter a number 1-2!"
+        std::cout << Color::colorCodes[Color::Colors::BrightRed] << "Please enter a number 1-2!"
             << Color::colorCodes[Color::Colors::Reset] << std::endl;
     }
 
@@ -122,7 +150,7 @@ void Main::attack() {
     if(!(std::cin >> chosenIndex)) {
         std::cin.clear();
         std::cin.ignore(1000, '\n');
-        std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::BrightRed] << "Please enter a valid input!"
+        std::cout << Color::colorCodes[Color::Colors::BrightRed] << "Please enter a valid input!"
             << Color::colorCodes[Color::Colors::Reset] << std::endl;
         return;
     }
@@ -131,7 +159,7 @@ void Main::attack() {
     const auto& weapons = player.getInventory().getWeapons();
 
     if(chosenIndex < 0 || chosenIndex >= static_cast<int>(weapons.size())) {
-        std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::BrightRed] << "Not a valid item!"
+        std::cout << Color::colorCodes[Color::Colors::BrightRed] << "Not a valid item!"
             << Color::colorCodes[Color::Colors::Reset] << std::endl;
         return;
     }
@@ -199,13 +227,13 @@ void Main::getAttacked() {
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
 
-        std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::BrightRed] << "You were hit for " << damageTaken << " damage!"
+        std::cout << Color::colorCodes[Color::Colors::BrightRed] << "You were hit for " << damageTaken << " damage!"
             << Color::colorCodes[Color::Colors::Reset] << std::endl;
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
 
         if(player.getHealth() <= 0) {
-            std::cout << "\x1b[1" << Color::colorCodes[Color::Colors::Red] << "You died!"
+            std::cout << Color::colorCodes[Color::Colors::Red] << "You died!"
                 << Color::colorCodes[Color::Colors::Reset] << std::endl;
             gameOver();
             break;
@@ -229,7 +257,10 @@ void Main::gameOver() {
 }
 
 int main() {
+    setupStory();
+
     Main game(50);
+    game.playStoryNode(StoryNode::getRootNode());
     game.runGame();
     return 0;
 }
