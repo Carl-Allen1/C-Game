@@ -25,10 +25,10 @@ public:
     void setMaxItems(int maxItems);
     void setMaxWeapons(int maxWeapons);
 
-    std::vector<std::unique_ptr<Item>>& getItems();
-    std::vector<std::unique_ptr<Weapon>>& getWeapons();
-    int getMaxItems();
-    int getMaxWeapons();
+    const std::vector<std::unique_ptr<Item>>& getItems() const;
+    const std::vector<std::unique_ptr<Weapon>>& getWeapons() const;
+    int getMaxItems() const;
+    int getMaxWeapons() const;
 };
 
 #endif // INVENTORY_H

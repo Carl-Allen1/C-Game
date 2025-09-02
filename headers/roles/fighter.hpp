@@ -10,13 +10,9 @@
 class Fighter: public Role {
 private:
     double armor;
-
-    std::unique_ptr<Slash> primary;
-    std::unique_ptr<Reinforce> secondary;
-    std::unique_ptr<Frenzy> ultimate;
 public:
     Fighter();
-    Fighter(double armor);
+    Fighter(double armor, int attacks);
 
     void usePrimary(GameContext gctx) override;
     void useSecondary(GameContext gctx) override;
@@ -26,7 +22,7 @@ public:
 
     void setArmor(double armor) override;
 
-    double getArmor() override;
+    double getArmor() const override;
 };
 
 #endif // FIGHTER_H

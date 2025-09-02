@@ -30,15 +30,15 @@ public:
     virtual Type type() = 0;
     virtual bool hasArmor() = 0;
 
-    void setAttacks(int setAttacks);
+    virtual void setAttacks(int setAttacks);
     virtual void setArmor(double armor) = 0;
 
-    int getAttacks();
-    virtual double getArmor() = 0;
+    virtual int getAttacks() const;
+    virtual double getArmor() const = 0;
 
-    virtual std::unique_ptr<Ability> getPrimary();
-    virtual std::unique_ptr<Ability> getSecondary();
-    virtual std::unique_ptr<Ability> getUltimate();
+    virtual const std::unique_ptr<Ability>& getPrimary() const;
+    virtual const std::unique_ptr<Ability>& getSecondary() const;
+    virtual const std::unique_ptr<Ability>& getUltimate() const;
 };
 
 #endif // ROLE_H

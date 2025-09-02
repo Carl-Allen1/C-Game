@@ -16,7 +16,7 @@ public:
 
     void setDead(bool isDead);
     
-    double getHealth();
+    double getHealth() const;
     bool getDead() const;
 };
 

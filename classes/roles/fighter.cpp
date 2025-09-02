@@ -2,7 +2,7 @@
 
 Fighter::Fighter() {}
 
-Fighter::Fighter(double armor) {
+Fighter::Fighter(double armor, int attacks) : Role(attacks) {
     this->armor = armor;
     this->primary = std::make_unique<Slash>(3, false, true, 10);
     this->secondary = std::make_unique<Reinforce>(4, 2, true, false, 2);
@@ -26,4 +26,4 @@ bool Fighter::hasArmor() { return true; }
 
 void Fighter::setArmor(double armor) { this->armor = armor; }
 
-double Fighter::getArmor() { return armor; }
+double Fighter::getArmor() const { return armor; }

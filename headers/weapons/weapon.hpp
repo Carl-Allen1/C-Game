@@ -26,7 +26,7 @@ public:
     virtual Type weaponType();
 
     void setStrength(int strength);
-    int getStrength();
+    int getStrength() const;
 };
 
 #endif // WEAPON_H

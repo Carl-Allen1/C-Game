@@ -41,11 +41,11 @@ public:
     void setBroken(bool broken);
     void setName(std::string name);
 
-    double getDurability();
-    double getMaxDurability();
-    bool getBreakable();
-    bool getBroken();
-    std::string getName();
+    double getDurability() const;
+    double getMaxDurability() const;
+    bool getBreakable() const;
+    bool getBroken() const;
+    std::string getName() const;
 };
 
 #endif // ITEM_H

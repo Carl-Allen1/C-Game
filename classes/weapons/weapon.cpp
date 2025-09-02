@@ -19,4 +19,4 @@ Weapon::Type Weapon::weaponType() { return Weapon::Type::Base; }
 
 void Weapon::setStrength(int strength) { this->strength = strength; }
 
-int Weapon::getStrength() { return strength; }
+int Weapon::getStrength() const { return strength; }

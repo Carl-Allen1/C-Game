@@ -18,7 +18,7 @@ protected:
     bool used;
 public:
     virtual ~Ability() = default;
-    virtual void execute(GameContext gctx) = 0;
+    virtual void execute(GameContext gctx) { }
     virtual void revert(GameContext gctx) { }
 
     virtual void incCTracker();
@@ -32,14 +32,14 @@ public:
     virtual void setUnlocked(bool unlocked);
     virtual void setUsed(bool used);
 
-    virtual std::string getDescription();
-    virtual int getCooldown();
-    virtual int getCTracker();
-    virtual int getDuration();
-    virtual int getDTracker();
-    virtual bool getDurable();
-    virtual bool getUnlocked();
-    virtual bool getUsed();
+    virtual std::string getDescription() const;
+    virtual int getCooldown() const;
+    virtual int getCTracker() const;
+    virtual int getDuration() const;
+    virtual int getDTracker() const;
+    virtual bool getDurable() const;
+    virtual bool getUnlocked() const;
+    virtual bool getUsed() const;
 };
 
 #endif // ABILITY_H

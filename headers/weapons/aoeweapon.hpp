@@ -17,7 +17,7 @@ public:
 
     void setTargetCount(int targetCount);
 
-    int getTargetCount();
+    int getTargetCount() const;
 };
 
 #endif // AOE_WEAPON_H

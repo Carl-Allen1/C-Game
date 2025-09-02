@@ -10,13 +10,11 @@ Player::Player(int inventorySize, double health) : inventory(inventorySize, 3) {
     this->health = health;
 }
 
-void Player::setRole(std::unique_ptr<Role> role) {
-    this->role = std::move(role);
-
-    std::cout << Color::colorCodes[Color::Colors::Yellow] << "Primary Ability: " << this->role->getPrimary()->getDescription()
-        << std::endl;
-    std::cout << "Secondary Ability: " << this->role->getSecondary()->getDescription() << std::endl;
-    std::cout << "Ultimate Ability: " << this->role->getUltimate()->getDescription()
+void Player::printAbilities() {
+    std::cout << "Primary typeid: " << typeid(*role->getPrimary()).name() << std::endl;
+    std::cout << Color::colorCodes[Color::Colors::Yellow] << "Primary Ability: " << role->getPrimary()->getDescription() << std::endl
+        << "Secondary Ability: " << role->getSecondary()->getDescription() << std::endl
+        << "Ultimate Ability: " << role->getUltimate()->getDescription()
         << Color::colorCodes[Color::Colors::Reset] << std::endl;
 }
 

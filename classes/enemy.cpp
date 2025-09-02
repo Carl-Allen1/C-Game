@@ -9,4 +9,4 @@ Enemy::Enemy(double damage, double health) {
 
 void Enemy::setDamage(double damage) { this->damage = damage; }
 
-double Enemy::getDamage() { return damage; }
+double Enemy::getDamage() const { return damage; }

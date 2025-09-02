@@ -11,7 +11,7 @@ public:
     Enemy(double damage, double health);
     
     void setDamage(double damage);
-    double getDamage();
+    double getDamage() const;
 };
 
 #endif // ENEMY_H

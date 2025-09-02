@@ -15,7 +15,15 @@ public:
     Player();
     Player(int inventorySize, double health);
 
-    void setRole(std::unique_ptr<Role> role);
+    template<typename T, typename... Args>
+    void setRole(Args&&... args) {
+        static_assert(std::is_base_of<Role, T>::value, "T must be a subclass of Role");
+        role = std::make_unique<T>(std::forward<Args>(args)...);
+        
+        printAbilities();
+    }
+
+    void printAbilities();
     void setWeapon(std::unique_ptr<Weapon> setWeapon);
 
     Inventory& getInventory();

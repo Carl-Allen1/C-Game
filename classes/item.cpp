@@ -31,8 +31,8 @@ void Item::setBroken(bool broken) { this->broken = broken; }
 void Item::setName(std::string name) { this->name = name; }
 
 // Getters
-double Item::getDurability() { return durability; }
-double Item::getMaxDurability() { return maxDurability; }
-bool Item::getBreakable() { return breakable; }
-bool Item::getBroken() { return broken; }
-std::string Item::getName() { return name; }
+double Item::getDurability() const { return durability; }
+double Item::getMaxDurability() const { return maxDurability; }
+bool Item::getBreakable() const { return breakable; }
+bool Item::getBroken() const { return broken; }
+std::string Item::getName() const { return name; }

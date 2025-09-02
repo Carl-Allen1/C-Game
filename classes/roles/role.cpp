@@ -1,9 +1,13 @@
 #include "../headers/roles/role.hpp"
+#include "../headers/abilities/nullability.hpp"
 
 Role::Role() {}
 
 Role::Role(int attacks) {
     this->attacks = attacks;
+    this->primary = std::make_unique<NullAbility>();
+    this->secondary = std::make_unique<NullAbility>();
+    this->ultimate = std::make_unique<NullAbility>();
 }
 
 void Role::checkCooldowns() {
@@ -42,7 +46,7 @@ void Role::checkDurations(GameContext gctx) {
 
 void Role::setAttacks(int setAttacks) { attacks = setAttacks; }
 
-int Role::getAttacks() { return attacks; }
-std::unique_ptr<Ability> Role::getPrimary() { return std::move(primary); }
-std::unique_ptr<Ability> Role::getSecondary() { return std::move(secondary); }
-std::unique_ptr<Ability> Role::getUltimate() { return std::move(ultimate); }
+int Role::getAttacks() const { return attacks; }
+const std::unique_ptr<Ability>& Role::getPrimary() const { return primary; }
+const std::unique_ptr<Ability>& Role::getSecondary() const { return secondary; }
+const std::unique_ptr<Ability>& Role::getUltimate() const { return ultimate; }

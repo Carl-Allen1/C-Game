@@ -77,7 +77,7 @@ void Main::pickRole() {
     }
 
     switch(chosenRole) {
-        case 1: player.setRole(std::make_unique<Fighter>(3)); break;
+        case 1: player.setRole<Fighter>(3, 1); break;
     }
 }
 

@@ -37,4 +37,4 @@ void AOEWeapon::attack(std::vector<Enemy>& targets) {
 
 void AOEWeapon::setTargetCount(int targetCount) { this->targetCount = targetCount; }
 
-int AOEWeapon::getTargetCount() { return targetCount; }
+int AOEWeapon::getTargetCount() const { return targetCount; }
