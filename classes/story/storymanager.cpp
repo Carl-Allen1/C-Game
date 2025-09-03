@@ -6,6 +6,8 @@
 #include <thread>
 #include <chrono>
 #include <vector>
+#include <cctype>
+#include <string>
 
 void StoryManager::typewriterPrint(const std::string& text, int charDelayMs, int lineDelayMs) {
     for(int i = 0; i < static_cast<int>(text.size()); ) {
@@ -18,6 +20,23 @@ void StoryManager::typewriterPrint(const std::string& text, int charDelayMs, int
             if(i < static_cast<int>(text.size())) { esc += text[i++]; }
 
             std::cout << esc;
+        } else if(text[i] == '%' && i + 1 < static_cast<int>(text.size())) {
+            std::string time = "";
+
+            i++;
+
+            while(i < static_cast<int>(text.size()) && isdigit(text[i])) { time += text[i++]; }
+
+            switch(text[i]) {
+                case 's': std::this_thread::sleep_for(std::chrono::seconds(std::stoi(time))); break;
+                case 'm': std::this_thread::sleep_for(std::chrono::milliseconds(std::stoi(time))); break;
+                case 'c': std::this_thread::sleep_for(std::chrono::microseconds(std::stoi(time))); break;
+                case 'n': std::this_thread::sleep_for(std::chrono::nanoseconds(std::stoi(time))); break;
+            }
+
+            if(i < static_cast<int>(text.size())) std::cout << text[++i] << std::flush;
+
+            i++;
         } else {
             std::cout << text[i++] << std::flush;
             std::this_thread::sleep_for(std::chrono::milliseconds(charDelayMs));
