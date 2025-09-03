@@ -18,8 +18,8 @@ protected:
     bool used;
 public:
     virtual ~Ability() = default;
-    virtual void execute(GameContext gctx) { }
-    virtual void revert(GameContext gctx) { }
+    virtual void execute([[maybe_unused]] GameContext gctx) { }
+    virtual void revert([[maybe_unused]] GameContext gctx) { }
 
     virtual void incCTracker();
     virtual void incDTracker();

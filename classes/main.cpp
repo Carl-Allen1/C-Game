@@ -26,8 +26,8 @@ void Main::playStoryNode(StoryNode* node) {
 
     if(node->choices.empty()) return;
 
-    for(int i = 0; i < node->choiceTitles.size(); i++) {
-        std::cout << Color::colorCodes[Color::Colors::Cyan] << i + 1 << ". " << node->choiceTitles[i]
+    for(int i = 0; i < static_cast<int>(node->choiceTitles.size()); i++) {
+        std::cout << Color::colorCodes[Color::Colors::White] << i + 1 << ". " << node->choiceTitles[i]
             << Color::colorCodes[Color::Colors::Reset] << std::endl;
     }
 
@@ -36,7 +36,7 @@ void Main::playStoryNode(StoryNode* node) {
         std::cout << Color::colorCodes[Color::Colors::Green] << "Enter choice: "
             << Color::colorCodes[Color::Colors::Reset] << std::endl;
 
-        if(std::cin >> choice && choice > 0 && choice <= node->choices.size()) break;
+        if(std::cin >> choice && choice > 0 && choice <= static_cast<int>(node->choices.size())) break;
         
         std::cin.clear();
         std::cin.ignore(1000, '\n');
@@ -44,6 +44,7 @@ void Main::playStoryNode(StoryNode* node) {
             << Color::colorCodes[Color::Colors::Reset] << std::endl;
     }
 
+    StoryManager::deleteStoryFile(node);
     playStoryNode(node->choices[choice - 1]);
 }
 

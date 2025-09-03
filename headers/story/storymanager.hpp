@@ -3,10 +3,13 @@
 
 #include <string>
 
+class StoryNode;
+
 class StoryManager {
 public:
     static void printStoryFile(const std::string& filePath);
-    static void typewriterPrint(const std::string& text, int charDelayMs, int lineDelayMs);
+    static void deleteStoryFile(StoryNode* node);
+    static void typewriterPrint(const std::string& text, int charDelayMs = 30, int lineDelayMs = 500);
 };
 
 #endif // STORY_MANAGER_H
